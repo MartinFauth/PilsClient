@@ -1,0 +1,36 @@
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between; /* Sépare les boutons et l'heure */
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box; /* Pour éviter tout dépassement */
+  }
+  
+  .button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .button:hover {
+    background-color: #777;
+  }
+  
+  .time {
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap; /* Empêche le texte de se découper sur plusieurs lignes */
+    margin-left: auto; /* Pousse l'heure complètement à droite */
+  }
+  

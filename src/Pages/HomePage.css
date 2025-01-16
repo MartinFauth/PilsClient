@@ -1,0 +1,18 @@
+/* Container principal de la page */
+.homepage-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* La page occupe toute la hauteur */
+}
+
+/* Le conteneur principal (MainContainer) va prendre tout l'espace restant */
+.main-container {
+  flex: 1;
+  display: grid;
+  grid-template-areas:
+    "top-left top-right"
+    "bottom-left bottom-right";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  height: 100%;
+}

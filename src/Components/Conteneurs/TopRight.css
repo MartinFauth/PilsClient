@@ -1,0 +1,56 @@
+/* TopRight.css */
+
+.top-right {
+  background-color: #ffffff; /* Fond blanc */
+  border: 1px solid #818181; /* Bordure grise subtile */
+  border-radius: 8px;
+  padding: 20px; /* Espacement interne */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  font-family: Arial, sans-serif; /* Police lisible */
+  color: #333; /* Couleur principale du texte */
+}
+
+.top-right h3 {
+  margin-bottom: 20px; /* Espacement sous le titre */
+  font-size: 20px; /* Taille du texte */
+  color: #4caf50; /* Couleur verte pour le titre */
+}
+
+.top-right p {
+  margin: 10px 0; /* Espacement vertical entre les paragraphes */
+  font-size: 16px; /* Taille de texte légèrement augmentée */
+  line-height: 1.5; /* Meilleure lisibilité */
+}
+
+.top-right p span {
+  font-weight: bold; /* Texte important en gras */
+  color: #555; /* Couleur secondaire pour les étiquettes */
+}
+
+.top-right button {
+  margin-right: 10px; /* Espacement entre les boutons */
+  padding: 10px 20px; /* Taille des boutons */
+  font-size: 14px; /* Taille du texte dans les boutons */
+  border: none; /* Pas de bordure */
+  border-radius: 4px; /* Coins arrondis */
+  cursor: pointer; /* Main au survol */
+  transition: background-color 0.3s ease; /* Animation subtile au survol */
+}
+
+.top-right button:first-child {
+  background-color: #f44336; /* Rouge pour 'Classer' */
+  color: white; /* Texte blanc */
+}
+
+.top-right button:first-child:hover {
+  background-color: #d32f2f; /* Rouge foncé au survol */
+}
+
+.top-right button:last-child {
+  background-color: #4caf50; /* Vert pour 'Réassigner' */
+  color: white; /* Texte blanc */
+}
+
+.top-right button:last-child:hover {
+  background-color: #388e3c; /* Vert foncé au survol */
+}

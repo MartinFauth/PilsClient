@@ -1,0 +1,34 @@
+/* MainContainer.css */
+
+.main-container {
+  display: grid;
+  grid-template-areas:
+    "top-left top-right"
+    "bottom-right bottom-left";
+  grid-template-columns: 1fr 1fr; /* Divise en deux colonnes égales */
+  grid-template-rows: 1fr 1fr; /* Divise en deux lignes égales */
+  gap: 10px; /* Espacement entre les conteneurs */
+  height: 100vh; /* La grille occupe toute la hauteur de la fenêtre */
+}
+
+/* Section BottomRight */
+.bottom-right {
+  grid-area: bottom-right; /* Place dans la zone de grille */
+
+  overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+  background-color: #d3d3d3; /* Fond clair */
+  border: 1px solid #000000; /* Bordure grise */
+  border-radius: 8px; /* Coins arrondis */
+  padding: 10px; /* Espacement interne */
+}
+
+/* Section BottomLeft */
+.bottom-left {
+  grid-area: bottom-left; /* Place dans la zone de grille */
+
+  overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+  background-color: #d3d3d3; /* Fond clair */
+  border: 1px solid #000000; /* Bordure grise */
+  border-radius: 8px; /* Coins arrondis */
+  padding: 10px; /* Espacement interne */
+}

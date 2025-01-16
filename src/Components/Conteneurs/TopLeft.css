@@ -1,0 +1,16 @@
+.top-left {
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    background-color: #ffffff; /* Couleur de fond */
+    font-size: 18px;
+    border: 1px solid #000000; /* Bordure grise subtile */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+    font-weight: bold;
+  }
+  video {
+    max-width: 100%; /* La vidéo ne dépassera pas la largeur du conteneur */
+    max-height: 100%; /* La vidéo ne dépassera pas la hauteur du conteneur */
+    object-fit: contain; /* Assurer que la vidéo garde son ratio sans la déformer */
+  }

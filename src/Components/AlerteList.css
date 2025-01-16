@@ -1,0 +1,60 @@
+/* AlerteList.css */
+.alerte-list {
+  display: flex;
+  flex-direction: column; /* Empiler les alertes verticalement */
+  gap: 10px; /* Espacement entre les alertes */
+}
+
+.alerte-item {
+  background-color: #ffffff; /* Couleur de fond blanche */
+  border: 1px solid #ccc; /* Bordure grise */
+  border-radius: 8px; /* Coins arrondis */
+  padding: 15px; /* Espacement interne */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  transition: transform 0.2s, box-shadow 0.2s; /* Animation sur hover */
+  cursor: pointer; /* Main au survol */
+}
+
+.alerte-item:hover {
+  transform: scale(1.02); /* Zoom léger */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Accentuation de l'ombre */
+}
+
+.alerte-item .header {
+  display: flex;
+  justify-content: space-between; /* Espace entre ID et statut */
+  align-items: center; /* Alignement vertical */
+  margin-bottom: 10px; /* Espacement entre le header et le contenu */
+}
+
+.alerte-item .header .id {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.alerte-item .header .statut {
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+}
+
+.alerte-item .header .statut.en-cours {
+  background-color: #dd1616; /* Vert pour En cours */
+}
+
+.alerte-item .header .statut.classee {
+  background-color: #2bb929; /* Rouge pour Classée */
+}
+
+.alerte-item .details {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.alerte-item .details span {
+  font-weight: bold;
+  color: #333;
+}
