@@ -9,7 +9,7 @@ const TopRight = ({ alerte, onClasser, onReassigner }) => {
   return (
     <div className="top-right">
       <h3>Détails de l'alerte</h3>
-      <p>Caméra : {alerte.camera}</p>
+      <p>Caméra : {alerte.camera_id}</p>
       <p>Date : {alerte.date}</p>
       <p>Heure : {alerte.heure}</p>
       <button onClick={() => onClasser(alerte.id)}>Classer</button>

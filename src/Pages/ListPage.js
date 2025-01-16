@@ -56,9 +56,17 @@ const ListPage = () => {
   // Réassigner une alerte avec un appel API
   const handleReassignerAlerte = async (id) => {
     const alerteToUpdate = alertes.find((alerte) => alerte.id === id);
-    console.log(id);
     if (!alerteToUpdate) return;
-
+  
+    const convertToTimeFormat = (seconds) => {
+      const hours = Math.floor(seconds / 3600).toString().padStart(2, "0");
+      const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, "0");
+      const secs = (seconds % 60).toString().padStart(2, "0");
+      return `${hours}:${minutes}:${secs}`;
+    };
+  
+    const formattedHeure = convertToTimeFormat(alerteToUpdate.heure);
+  
     try {
       const response = await fetch(`http://127.0.0.1:5001/api/alertes/${id}`, {
         method: "PUT",
@@ -67,16 +75,17 @@ const ListPage = () => {
         },
         body: JSON.stringify({
           ...alerteToUpdate,
-          statut: "En cours", // Mise à jour du statut
+          statut: "En cours",
+          heure: formattedHeure, // Assurez-vous que l'heure est correctement formatée
         }),
       });
-
+  
       if (!response.ok) {
         throw new Error("Erreur lors de la mise à jour de l'alerte");
       }
-
+  
       console.log(`Alerte ${id} réassignée avec succès`);
-
+  
       setAlertes((prev) =>
         prev.map((alerte) =>
           alerte.id === id ? { ...alerte, statut: "en cours" } : alerte
@@ -86,7 +95,7 @@ const ListPage = () => {
       console.error("Erreur lors de la mise à jour de l'alerte :", error);
     }
   };
-
+  
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
       <h1>Liste des Alertes</h1>
@@ -136,7 +145,7 @@ const ListPage = () => {
               }}
             >
               <p><strong>Identifiant de l'alerte :</strong> {alerte.id}</p>
-              <p><strong>Heure:</strong> {alerte.heure}</p>
+              <p><strong>Heure:</strong> {new Date(alerte.heure * 1000).toISOString().substr(11, 8)}</p>
               <p><strong>Date:</strong> {new Date(alerte.date).toLocaleString()}</p>
               <p><strong>Camera ID:</strong> {alerte.camera_id}</p>
               <p><strong>Statut:</strong> {alerte.statut}</p>
