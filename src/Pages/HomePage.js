@@ -16,7 +16,11 @@ const HomePage = () => {
     if (!cookie) {
       navigate("/"); // Si le cookie n'est pas présent, redirection vers la page de connexion
       return;
+    }else{
+
+
     }
+    
 
     // Récupération des alertes via l'API
     const fetchAlertes = async () => {
