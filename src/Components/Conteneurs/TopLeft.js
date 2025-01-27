@@ -5,7 +5,8 @@ const TopLeft = ({ video }) => {
   const [error, setError] = useState(false);
 
   // Chemin du serveur pour les vidéos
-  const videoPath = video ? `http://127.0.0.1:5001/videos/${video}` : null;
+  const videoPath = video ? `http://localhost:3000/output_videos/alerts/${video}` : null;
+  console.log(videoPath);
 
   return (
     <div className="top-left">

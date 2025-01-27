@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const ListPage = () => {
   const navigate = useNavigate();
+  const statuts = ["En cours", "Classee"];
 
   // États locaux
   const [alertes, setAlertes] = useState([]);
@@ -11,6 +15,8 @@ const ListPage = () => {
   const [error, setError] = useState(null);
   const [attribute, setAttribute] = useState("camera_id"); // Attribut pour le filtre
   const [filterValue, setFilterValue] = useState(""); // Valeur du filtre
+  const [selectedDate, setSelectedDate] = useState(null); // Valeur pour le filtre par date
+
 
   // Vérifie l'authentification via le cookie
   useEffect(() => {
@@ -57,16 +63,20 @@ const ListPage = () => {
   const handleReassignerAlerte = async (id) => {
     const alerteToUpdate = alertes.find((alerte) => alerte.id === id);
     if (!alerteToUpdate) return;
-  
+
     const convertToTimeFormat = (seconds) => {
       const hours = Math.floor(seconds / 3600).toString().padStart(2, "0");
       const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, "0");
       const secs = (seconds % 60).toString().padStart(2, "0");
       return `${hours}:${minutes}:${secs}`;
     };
-  
+
     const formattedHeure = convertToTimeFormat(alerteToUpdate.heure);
-  
+
+    let message = "En cours";
+    if (alerteToUpdate.statut === "En cours") {
+      message = "Classee";
+    }
     try {
       const response = await fetch(`http://127.0.0.1:5001/api/alertes/${id}`, {
         method: "PUT",
@@ -75,27 +85,27 @@ const ListPage = () => {
         },
         body: JSON.stringify({
           ...alerteToUpdate,
-          statut: "En cours",
+          statut: message,
           heure: formattedHeure, // Assurez-vous que l'heure est correctement formatée
         }),
       });
-  
+
       if (!response.ok) {
         throw new Error("Erreur lors de la mise à jour de l'alerte");
       }
-  
+
       console.log(`Alerte ${id} réassignée avec succès`);
-  
+
       setAlertes((prev) =>
         prev.map((alerte) =>
-          alerte.id === id ? { ...alerte, statut: "en cours" } : alerte
+          alerte.id === id ? { ...alerte, statut: message } : alerte
         )
       );
     } catch (error) {
       console.error("Erreur lors de la mise à jour de l'alerte :", error);
     }
   };
-  
+
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
       <h1>Liste des Alertes</h1>
@@ -106,22 +116,42 @@ const ListPage = () => {
         <select
           id="attribute-select"
           value={attribute}
-          onChange={(e) => setAttribute(e.target.value)}
+          onChange={(e) => {
+            setAttribute(e.target.value);
+            setFilterValue("");
+          }}
           style={{ marginRight: "10px" }}
         >
           <option value="id">Identifiant</option>
-
           <option value="camera_id">Camera ID</option>
           <option value="statut">Statut</option>
           <option value="date">Date</option>
         </select>
-        <input
-          type="text"
-          placeholder="Entrez une valeur"
-          value={filterValue}
-          onChange={(e) => setFilterValue(e.target.value)}
-          style={{ marginRight: "10px" }}
-        />
+
+        {/* Filtre spécifique pour l'attribut sélectionné */}
+        {attribute === "statut" ? (
+          <select
+            value={filterValue}
+            onChange={(e) => setFilterValue(e.target.value)}
+            style={{ marginRight: "10px" }}
+          >
+            <option value="">Tous les statuts</option>
+            {statuts.map((statut) => (
+              <option key={statut} value={statut}>
+                {statut}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <input
+            type="text"
+            placeholder="Entrez une valeur"
+            value={filterValue}
+            onChange={(e) => setFilterValue(e.target.value)}
+            style={{ marginRight: "10px" }}
+          />
+        )}
+
         <button onClick={handleFilter}>Filtrer</button>
       </div>
 
@@ -146,10 +176,11 @@ const ListPage = () => {
             >
               <p><strong>Identifiant de l'alerte :</strong> {alerte.id}</p>
               <p><strong>Heure:</strong> {new Date(alerte.heure * 1000).toISOString().substr(11, 8)}</p>
-              <p><strong>Date:</strong> {new Date(alerte.date).toLocaleString()}</p>
+              <p><strong>Date:</strong> {new Date(alerte.date).toISOString().substr(0, 10)}</p>
               <p><strong>Camera ID:</strong> {alerte.camera_id}</p>
               <p><strong>Statut:</strong> {alerte.statut}</p>
               <p><strong>Vidéo:</strong> {alerte.video || "N/A"}</p>
+
               <button
                 style={{
                   marginTop: "10px",
