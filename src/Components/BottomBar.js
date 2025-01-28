@@ -22,6 +22,8 @@ const BottomBar = () => {
     // Supprime les cookies
     Cookies.remove("session_token", { path: '/' });
     Cookies.remove("Is_Admin", { path: '/' });
+    Cookies.remove("user", { path: '/' });
+
 
     console.log('Cookies supprimés');
 

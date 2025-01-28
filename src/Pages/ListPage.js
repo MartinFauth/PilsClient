@@ -64,6 +64,11 @@ const ListPage = () => {
     const alerteToUpdate = alertes.find((alerte) => alerte.id === id);
     if (!alerteToUpdate) return;
 
+    const now = new Date();
+    const updateTime = now.toISOString().slice(0, 19).replace("T", " ");
+    //console.log(updateTime);
+
+
     const convertToTimeFormat = (seconds) => {
       const hours = Math.floor(seconds / 3600).toString().padStart(2, "0");
       const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, "0");
@@ -86,7 +91,9 @@ const ListPage = () => {
         body: JSON.stringify({
           ...alerteToUpdate,
           statut: message,
+          updatedBy : Cookies.get("user"),
           heure: formattedHeure, // Assurez-vous que l'heure est correctement formatée
+          lastUpdate : updateTime ,
         }),
       });
 

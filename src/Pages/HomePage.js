@@ -53,8 +53,11 @@ const HomePage = () => {
 
   // Classer une alerte (local uniquement, pas de mise à jour API dans cette version)
   const handleClasserAlerte = async (id) => {
+    console.log("lkaa");
+    console.log(Cookies.get("user"))
     const alerteToUpdate = alertes.find((alerte) => alerte.id === id);
     if (!alerteToUpdate) return;
+    
 
     try {
       const response = await fetch(`http://127.0.0.1:5001/api/alertes/${id}`, {
@@ -64,7 +67,10 @@ const HomePage = () => {
         },
         body: JSON.stringify({
           ...alerteToUpdate,
-          statut: "Classee",
+          updatedBy : Cookies.get("user"),
+          statut: "Classee"
+          
+
            // Mise à jour du statut
         }),
       });
@@ -101,6 +107,7 @@ const HomePage = () => {
         body: JSON.stringify({
           ...alerteToUpdate,
           statut: "En cours", // Mise à jour du statut
+          updatedBy : Cookies.get("user"),
         }),
       });
 

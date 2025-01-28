@@ -143,6 +143,7 @@ const login = async (username, password) => {
       console.log('Login successful:', data);
       Cookies.set("session_token",data.Session_id);
       Cookies.set("Is_Admin",data.isAdmin);
+      Cookies.set("user",data.username);
       
       //sleep(10000);
 
