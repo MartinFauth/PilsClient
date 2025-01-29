@@ -5,7 +5,7 @@ import BottomLeft from "../Conteneurs/BottomLeft";
 import BottomRight from "../Conteneurs/BottomRight";
 import "../Conteneurs/MainContainer.css";
 
-const MainContainer = ({ alertes, selectedAlerte, onSelectAlerte, onClasser, onReassigner }) => {
+const MainContainer = ({ alertes, selectedAlerte, onSelectAlerte, onClasser, onReassigner, onFP }) => {
 
   console.log("Alertes reçues dans MainContainer :", alertes);
 
@@ -19,6 +19,7 @@ const MainContainer = ({ alertes, selectedAlerte, onSelectAlerte, onClasser, onR
         alerte={selectedAlerte} 
         onClasser={onClasser} 
         onReassigner={onReassigner} 
+        onFP={onFP}
       />
 
       {/* Section BottomLeft : Alertes classées */}

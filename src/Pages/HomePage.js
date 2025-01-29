@@ -51,6 +51,53 @@ const HomePage = () => {
   // Sélectionner une alerte
   const handleSelectAlerte = (alerte) => setSelectedAlerte(alerte);
 
+
+  const handleFP = async (id) => {
+
+    const alerteToUpdate = alertes.find((alerte) => alerte.id === id);
+    if (!alerteToUpdate) return;
+
+    let mess = 0;
+    console.log(alerteToUpdate.fauxPositif);
+    if (alerteToUpdate.fauxPositif === 0) {
+        mess = 1;
+    }
+    console.log(mess);
+
+
+    try {
+      const response = await fetch(`http://127.0.0.1:5001/api/alertes/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...alerteToUpdate,
+          fauxPositif: mess, 
+          updatedBy : Cookies.get("user")
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la mise à jour de l'alerte");
+      }
+
+      setAlertes((prev) =>
+        prev.map((alerte) =>
+          alerte.id === id ? { ...alerte, fauxPositif: mess , updatedBy : Cookies.get("user")} : alerte
+        )
+      );
+
+      setSelectedAlerte(alerteToUpdate);
+
+      console.log(`Alerte ${id} faux positif avec succès`);
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de l'alerte :", error);
+    }
+
+
+  }
+
   // Classer une alerte (local uniquement, pas de mise à jour API dans cette version)
   const handleClasserAlerte = async (id) => {
     console.log("lkaa");
@@ -68,7 +115,8 @@ const HomePage = () => {
         body: JSON.stringify({
           ...alerteToUpdate,
           updatedBy : Cookies.get("user"),
-          statut: "Classee"
+          statut: "Classee",
+
           
 
            // Mise à jour du statut
@@ -83,7 +131,7 @@ const HomePage = () => {
 
       setAlertes((prev) =>
         prev.map((alerte) =>
-          alerte.id === id ? { ...alerte, statut: "Classee" } : alerte
+          alerte.id === id ? { ...alerte, statut: "Classee" , updatedBy : Cookies.get("user")} : alerte
         )
       );
       setSelectedAlerte(null);
@@ -128,6 +176,8 @@ const HomePage = () => {
     }
   };
 
+
+
   return (
     <div className="homepage-container">
       {/* MainContainer contient les 4 conteneurs */}
@@ -137,6 +187,7 @@ const HomePage = () => {
         onSelectAlerte={handleSelectAlerte}
         onClasser={handleClasserAlerte}
         onReassigner={handleReassignerAlerte}
+        onFP={handleFP}
       />
 
       {/* Bandeau fixe */}
